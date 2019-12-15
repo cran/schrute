@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Using schrute</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using schrute</h1>
+
+
+
+<div id="what" class="section level1">
+<h1>What</h1>
+<p>This is a package that does/has only one thing: the complete transcriptions of all episodes of <a href="https://www.imdb.com/title/tt0386676/">The Office!</a> (US version).</p>
+<p>Use this data set to master NLP or text analysis. Let’s scratch the surface of the subject with a few examples from the excellent <a href="https://www.tidytextmining.com/">Text Mining with R</a> book, by Julia Silge and David Robinson.</p>
+<p>First install the package from CRAN:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(schrute)</a></code></pre></div>
+<p>There is only one data set with the schrute package; assign it to a variable</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">mydata &lt;-<span class="st"> </span>schrute<span class="op">::</span>theoffice</a></code></pre></div>
+<p>Take a peek at the format:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">dplyr<span class="op">::</span><span class="kw">glimpse</span>(mydata)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; Observations: 55,130</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; Variables: 7</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; $ index            &lt;int&gt; 1, 358, 715, 1072, 1429, 1786, 2143, 2500, 2857…</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; $ season           &lt;chr&gt; &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;,…</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; $ episode          &lt;chr&gt; &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;,…</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; $ episode_name     &lt;chr&gt; &quot; Pilot&quot;, &quot; Pilot&quot;, &quot; Pilot&quot;, &quot; Pilot&quot;, &quot; Pilot…</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; $ character        &lt;chr&gt; &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, …</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; $ text             &lt;chr&gt; &quot; All right Jim. Your quarterlies look very goo…</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; $ text_w_direction &lt;chr&gt; &quot; All right Jim. Your quarterlies look very goo…</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"> mydata <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(season <span class="op">==</span><span class="st"> '01'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(episode <span class="op">==</span><span class="st"> '01'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">index</th>
+<th align="left">season</th>
+<th align="left">episode</th>
+<th align="left">episode_name</th>
+<th align="left">character</th>
+<th align="left">text</th>
+<th align="left">text_w_direction</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">01</td>
+<td align="left">01</td>
+<td align="left">Pilot</td>
+<td align="left">Michael</td>
+<td align="left">All right Jim. Your quarterlies look very good. How are things at the library?</td>
+<td align="left">All right Jim. Your quarterlies look very good. How are things at the library?</td>
+</tr>
+<tr class="even">
+<td align="right">358</td>
+<td align="left">01</td>
+<td align="left">01</td>
+<td align="left">Pilot</td>
+<td align="left">Jim</td>
+<td align="left">Oh, I told you. I couldn’t close it. So…</td>
+<td align="left">Oh, I told you. I couldn’t close it. So…</td>
+</tr>
+<tr class="odd">
+<td align="right">715</td>
+<td align="left">01</td>
+<td align="left">01</td>
+<td align="left">Pilot</td>
+<td align="left">Michael</td>
+<td align="left">So you’ve come to the master for guidance? Is this what you’re saying, grasshopper?</td>
+<td align="left">So you’ve come to the master for guidance? Is this what you’re saying, grasshopper?</td>
+</tr>
+</tbody>
+</table>
+<p>So what we have is the season, episode number and name, character, the line spoken and the line spoken with the stage direction (cue).</p>
+<p>We can tokenize all of the lines with a few lines from the tidytext package:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">token.mydata &lt;-<span class="st"> </span>mydata <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span>tidytext<span class="op">::</span><span class="kw">unnest_tokens</span>(word, text)</a></code></pre></div>
+<p>This increases our data set to 575146 records, where each record contains a word from the script.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"> token.mydata <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(season <span class="op">==</span><span class="st"> '01'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(episode <span class="op">==</span><span class="st"> '01'</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</a></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">index</th>
+<th align="left">season</th>
+<th align="left">episode</th>
+<th align="left">episode_name</th>
+<th align="left">character</th>
+<th align="left">text_w_direction</th>
+<th align="left">word</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">01</td>
+<td align="left">01</td>
+<td align="left">Pilot</td>
+<td align="left">Michael</td>
+<td align="left">All right Jim. Your quarterlies look very good. How are things at the library?</td>
+<td align="left">all</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">01</td>
+<td align="left">01</td>
+<td align="left">Pilot</td>
+<td align="left">Michael</td>
+<td align="left">All right Jim. Your quarterlies look very good. How are things at the library?</td>
+<td align="left">right</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">01</td>
+<td align="left">01</td>
+<td align="left">Pilot</td>
+<td align="left">Michael</td>
+<td align="left">All right Jim. Your quarterlies look very good. How are things at the library?</td>
+<td align="left">jim</td>
+</tr>
+</tbody>
+</table>
+<p>If we want to analyze the entire data set, we need to remove some stop words first:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">stop_words &lt;-<span class="st"> </span>tidytext<span class="op">::</span>stop_words</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">tidy.token.mydata &lt;-<span class="st"> </span>token.mydata <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">anti_join</span>(stop_words, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>)</a></code></pre></div>
+<p>And then see what the most common words are:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">tidy.token.mydata <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) </a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; # A tibble: 19,225 x 2</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt;    word        n</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;  1 yeah     2895</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;  2 hey      2189</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;  3 michael  2054</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;  4 dwight   1540</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;  5 uh       1433</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;  6 gonna    1365</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  7 jim      1345</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;  8 pam      1168</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  9 time     1129</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; 10 guys      933</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; # … with 19,215 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">tidy.token.mydata <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">400</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">word =</span> stats<span class="op">::</span><span class="kw">reorder</span>(word, n)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(ggplot2<span class="op">::</span><span class="kw">aes</span>(word, n)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_col</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_minimal</span>()</a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Feel free to keep going with this. Now that you have the time line (episode, season) and the character for each line and word in the series, you can perform an unlimited number of analyses. Some ideas: - Sentiment by character - Sentiment by character by season - Narcissism by season (ahem.. Nard Dog season 8-9) - Lines by character - Etc.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
