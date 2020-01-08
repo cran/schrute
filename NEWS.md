@@ -1,4 +1,8 @@
-# schrute 0.1.0
+# schrute 0.1.1
+* Minor bug fixes
+* Added writer and director feature columns
 
-# 0.1.0
+# schrute 0.1.0
 * Initial release
+
+

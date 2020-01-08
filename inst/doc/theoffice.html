@@ -315,14 +315,16 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>Take a peek at the format:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">dplyr<span class="op">::</span><span class="kw">glimpse</span>(mydata)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; Observations: 55,130</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; Variables: 7</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; $ index            &lt;int&gt; 1, 358, 715, 1072, 1429, 1786, 2143, 2500, 2857…</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; Variables: 9</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; $ index            &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, …</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; $ season           &lt;chr&gt; &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;,…</span></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; $ episode          &lt;chr&gt; &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;,…</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; $ episode_name     &lt;chr&gt; &quot; Pilot&quot;, &quot; Pilot&quot;, &quot; Pilot&quot;, &quot; Pilot&quot;, &quot; Pilot…</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; $ character        &lt;chr&gt; &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, …</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; $ text             &lt;chr&gt; &quot; All right Jim. Your quarterlies look very goo…</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; $ text_w_direction &lt;chr&gt; &quot; All right Jim. Your quarterlies look very goo…</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; $ episode_name     &lt;chr&gt; &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;P…</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; $ director         &lt;chr&gt; &quot;Ken Kwapis&quot;, &quot;Ken Kwapis&quot;, &quot;Ken Kwapis&quot;, &quot;Ken …</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; $ writer           &lt;chr&gt; &quot;Ricky Gervais;Stephen Merchant;Greg Daniels&quot;, …</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; $ character        &lt;chr&gt; &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, …</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; $ text             &lt;chr&gt; &quot;All right Jim. Your quarterlies look very good…</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; $ text_w_direction &lt;chr&gt; &quot;All right Jim. Your quarterlies look very good…</span></a></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"> mydata <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(season <span class="op">==</span><span class="st"> '01'</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(episode <span class="op">==</span><span class="st"> '01'</span>) <span class="op">%&gt;%</span></a>
@@ -335,6 +337,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <th align="left">season</th>
 <th align="left">episode</th>
 <th align="left">episode_name</th>
+<th align="left">director</th>
+<th align="left">writer</th>
 <th align="left">character</th>
 <th align="left">text</th>
 <th align="left">text_w_direction</th>
@@ -346,24 +350,30 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td align="left">01</td>
 <td align="left">01</td>
 <td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
 <td align="left">Michael</td>
 <td align="left">All right Jim. Your quarterlies look very good. How are things at the library?</td>
 <td align="left">All right Jim. Your quarterlies look very good. How are things at the library?</td>
 </tr>
 <tr class="even">
-<td align="right">358</td>
+<td align="right">2</td>
 <td align="left">01</td>
 <td align="left">01</td>
 <td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
 <td align="left">Jim</td>
 <td align="left">Oh, I told you. I couldn’t close it. So…</td>
 <td align="left">Oh, I told you. I couldn’t close it. So…</td>
 </tr>
 <tr class="odd">
-<td align="right">715</td>
+<td align="right">3</td>
 <td align="left">01</td>
 <td align="left">01</td>
 <td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
 <td align="left">Michael</td>
 <td align="left">So you’ve come to the master for guidance? Is this what you’re saying, grasshopper?</td>
 <td align="left">So you’ve come to the master for guidance? Is this what you’re saying, grasshopper?</td>
@@ -374,7 +384,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>We can tokenize all of the lines with a few lines from the tidytext package:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">token.mydata &lt;-<span class="st"> </span>mydata <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span>tidytext<span class="op">::</span><span class="kw">unnest_tokens</span>(word, text)</a></code></pre></div>
-<p>This increases our data set to 575146 records, where each record contains a word from the script.</p>
+<p>This increases our data set to 570566 records, where each record contains a word from the script.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"> token.mydata <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(season <span class="op">==</span><span class="st"> '01'</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(episode <span class="op">==</span><span class="st"> '01'</span>) <span class="op">%&gt;%</span></a>
@@ -387,6 +397,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <th align="left">season</th>
 <th align="left">episode</th>
 <th align="left">episode_name</th>
+<th align="left">director</th>
+<th align="left">writer</th>
 <th align="left">character</th>
 <th align="left">text_w_direction</th>
 <th align="left">word</th>
@@ -398,6 +410,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td align="left">01</td>
 <td align="left">01</td>
 <td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
 <td align="left">Michael</td>
 <td align="left">All right Jim. Your quarterlies look very good. How are things at the library?</td>
 <td align="left">all</td>
@@ -407,6 +421,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td align="left">01</td>
 <td align="left">01</td>
 <td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
 <td align="left">Michael</td>
 <td align="left">All right Jim. Your quarterlies look very good. How are things at the library?</td>
 <td align="left">right</td>
@@ -416,6 +432,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <td align="left">01</td>
 <td align="left">01</td>
 <td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
 <td align="left">Michael</td>
 <td align="left">All right Jim. Your quarterlies look very good. How are things at the library?</td>
 <td align="left">jim</td>
@@ -430,20 +448,20 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>And then see what the most common words are:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">tidy.token.mydata <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; # A tibble: 19,225 x 2</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; # A tibble: 19,041 x 2</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt;    word        n</span></a>
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;  1 yeah     2895</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;  2 hey      2189</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;  3 michael  2054</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;  4 dwight   1540</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;  5 uh       1433</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;  6 gonna    1365</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  7 jim      1345</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;  8 pam      1168</span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  9 time     1129</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; 10 guys      933</span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; # … with 19,215 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;  1 yeah     2928</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;  2 hey      2231</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;  3 michael  1859</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;  4 uh       1458</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;  5 gonna    1398</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;  6 dwight   1339</span></a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  7 jim      1168</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;  8 time     1146</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  9 pam      1044</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; 10 guys      945</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; # … with 19,031 more rows</span></a></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">tidy.token.mydata <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">400</span>) <span class="op">%&gt;%</span></a>
@@ -453,7 +471,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb9-7" data-line-number="7"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb9-8" data-line-number="8"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_minimal</span>()</a></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 <p>Feel free to keep going with this. Now that you have the time line (episode, season) and the character for each line and word in the series, you can perform an unlimited number of analyses. Some ideas: - Sentiment by character - Sentiment by character by season - Narcissism by season (ahem.. Nard Dog season 8-9) - Lines by character - Etc.</p>
 </div>
 
