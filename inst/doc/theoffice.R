@@ -15,8 +15,8 @@ dplyr::glimpse(mydata)
 
 ## -----------------------------------------------------------------------------
  mydata %>%
-  dplyr::filter(season == '01') %>%
-  dplyr::filter(episode == '01') %>%
+  dplyr::filter(season == 1) %>%
+  dplyr::filter(episode == 1) %>%
   dplyr::slice(1:3) %>%
   knitr::kable()
 
@@ -26,8 +26,8 @@ token.mydata <- mydata %>%
 
 ## -----------------------------------------------------------------------------
  token.mydata %>%
-  dplyr::filter(season == '01') %>%
-  dplyr::filter(episode == '01') %>%
+  dplyr::filter(season == 1) %>%
+  dplyr::filter(episode == 1) %>%
   dplyr::slice(1:3) %>%
   knitr::kable()
 
