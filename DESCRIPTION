@@ -1,6 +1,6 @@
 Package: schrute
 Title: The Entire Transcript from the Office in Tidy Format
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: 
     c(person(given = "Brad",
              family = "Lindblad",
@@ -26,12 +26,12 @@ Suggests: covr, knitr, rmarkdown, testthat (>= 2.1.0)
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2020-03-30 00:57:11 UTC; brad
+Packaged: 2020-06-30 19:10:49 UTC; brad
 Author: Brad Lindblad [aut, cre],
   Lucas Graybuck [ctb],
   Sean Kent [ctb]
 Maintainer: Brad Lindblad <bradley.lindblad@gmail.com>
 Repository: CRAN
-Date/Publication: 2020-03-30 04:40:02 UTC
+Date/Publication: 2020-06-30 20:40:03 UTC

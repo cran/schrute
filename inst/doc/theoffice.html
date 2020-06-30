@@ -14,13 +14,29 @@
 
 <title>Using schrute</title>
 
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -30,14 +46,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -46,9 +64,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -306,31 +324,45 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>This is a package that does/has only one thing: the complete transcriptions of all episodes of <a href="https://www.imdb.com/title/tt0386676/">The Office!</a> (US version).</p>
 <p>Use this data set to master NLP or text analysis. Let’s scratch the surface of the subject with a few examples from the excellent <a href="https://www.tidytextmining.com/">Text Mining with R</a> book, by Julia Silge and David Robinson.</p>
 <p>First install the package from CRAN:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(schrute)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(schrute)</span></code></pre></div>
 <p>There is only one data set with the schrute package; assign it to a variable</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">mydata &lt;-<span class="st"> </span>schrute<span class="op">::</span>theoffice</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>mydata &lt;-<span class="st"> </span>schrute<span class="op">::</span>theoffice</span></code></pre></div>
 <p>Take a peek at the format:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">dplyr<span class="op">::</span><span class="kw">glimpse</span>(mydata)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">#&gt; Observations: 55,130</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; Variables: 12</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; $ index            &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1…</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; $ season           &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; $ episode          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; $ episode_name     &lt;chr&gt; &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;…</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; $ director         &lt;chr&gt; &quot;Ken Kwapis&quot;, &quot;Ken Kwapis&quot;, &quot;Ken Kwapis&quot;, &quot;Ken Kwapi…</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; $ writer           &lt;chr&gt; &quot;Ricky Gervais;Stephen Merchant;Greg Daniels&quot;, &quot;Rick…</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; $ character        &lt;chr&gt; &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, &quot;Mich…</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; $ text             &lt;chr&gt; &quot;All right Jim. Your quarterlies look very good. How…</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; $ text_w_direction &lt;chr&gt; &quot;All right Jim. Your quarterlies look very good. How…</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; $ imdb_rating      &lt;dbl&gt; 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.…</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; $ total_votes      &lt;int&gt; 3706, 3706, 3706, 3706, 3706, 3706, 3706, 3706, 3706…</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; $ air_date         &lt;fct&gt; 2005-03-24, 2005-03-24, 2005-03-24, 2005-03-24, 2005…</span></a></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"> mydata <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(season <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(episode <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</a></code></pre></div>
-<table>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>dplyr<span class="op">::</span><span class="kw">glimpse</span>(mydata)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt; Rows: 55,130</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; Columns: 12</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; $ index            &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1…</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; $ season           &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; $ episode          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; $ episode_name     &lt;chr&gt; &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;…</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; $ director         &lt;chr&gt; &quot;Ken Kwapis&quot;, &quot;Ken Kwapis&quot;, &quot;Ken Kwapis&quot;, &quot;Ken Kwapi…</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; $ writer           &lt;chr&gt; &quot;Ricky Gervais;Stephen Merchant;Greg Daniels&quot;, &quot;Rick…</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; $ character        &lt;chr&gt; &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, &quot;Mich…</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; $ text             &lt;chr&gt; &quot;All right Jim. Your quarterlies look very good. How…</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; $ text_w_direction &lt;chr&gt; &quot;All right Jim. Your quarterlies look very good. How…</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; $ imdb_rating      &lt;dbl&gt; 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.…</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; $ total_votes      &lt;int&gt; 3706, 3706, 3706, 3706, 3706, 3706, 3706, 3706, 3706…</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; $ air_date         &lt;fct&gt; 2005-03-24, 2005-03-24, 2005-03-24, 2005-03-24, 2005…</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a> mydata <span class="op">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(season <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(episode <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="1%"></col>
+<col width="2%"></col>
+<col width="2%"></col>
+<col width="4%"></col>
+<col width="3%"></col>
+<col width="14%"></col>
+<col width="3%"></col>
+<col width="27%"></col>
+<col width="27%"></col>
+<col width="3%"></col>
+<col width="3%"></col>
+<col width="3%"></col>
+</colgroup>
 <thead>
 <tr class="header">
 <th align="right">index</th>
@@ -394,15 +426,29 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </table>
 <p>So what we have is the season, episode number and name, character, the line spoken and the line spoken with the stage direction (cue).</p>
 <p>We can tokenize all of the lines with a few lines from the tidytext package:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">token.mydata &lt;-<span class="st"> </span>mydata <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span>tidytext<span class="op">::</span><span class="kw">unnest_tokens</span>(word, text)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>token.mydata &lt;-<span class="st"> </span>mydata <span class="op">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span>tidytext<span class="op">::</span><span class="kw">unnest_tokens</span>(word, text)</span></code></pre></div>
 <p>This increases our data set to 570450 records, where each record contains a word from the script.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"> token.mydata <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(season <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(episode <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</a></code></pre></div>
-<table>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a> token.mydata <span class="op">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(season <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(episode <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="op">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="2%"></col>
+<col width="3%"></col>
+<col width="3%"></col>
+<col width="5%"></col>
+<col width="5%"></col>
+<col width="20%"></col>
+<col width="4%"></col>
+<col width="36%"></col>
+<col width="5%"></col>
+<col width="5%"></col>
+<col width="5%"></col>
+<col width="2%"></col>
+</colgroup>
 <thead>
 <tr class="header">
 <th align="right">index</th>
@@ -465,36 +511,36 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </tbody>
 </table>
 <p>If we want to analyze the entire data set, we need to remove some stop words first:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">stop_words &lt;-<span class="st"> </span>tidytext<span class="op">::</span>stop_words</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">tidy.token.mydata &lt;-<span class="st"> </span>token.mydata <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">anti_join</span>(stop_words, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>stop_words &lt;-<span class="st"> </span>tidytext<span class="op">::</span>stop_words</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>tidy.token.mydata &lt;-<span class="st"> </span>token.mydata <span class="op">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">anti_join</span>(stop_words, <span class="dt">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
 <p>And then see what the most common words are:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">tidy.token.mydata <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; # A tibble: 18,946 x 2</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt;    word        n</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt;  1 yeah     2930</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt;  2 hey      2232</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt;  3 michael  1859</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt;  4 uh       1459</span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt;  5 gonna    1399</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt;  6 dwight   1340</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  7 jim      1168</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;  8 time     1147</span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  9 pam      1044</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; 10 guys      945</span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; # … with 18,936 more rows</span></a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">tidy.token.mydata <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">400</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">word =</span> stats<span class="op">::</span><span class="kw">reorder</span>(word, n)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(ggplot2<span class="op">::</span><span class="kw">aes</span>(word, n)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_col</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="ot">NULL</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_minimal</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>tidy.token.mydata <span class="op">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) </span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">#&gt; # A tibble: 18,946 x 2</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt;    word        n</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt;    &lt;chr&gt;   &lt;int&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt;  1 yeah     2930</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt;  2 hey      2232</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt;  3 michael  1859</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt;  4 uh       1459</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt;  5 gonna    1399</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt;  6 dwight   1340</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt;  7 jim      1168</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt;  8 time     1147</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt;  9 pam      1044</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; 10 guys      945</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; # … with 18,936 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>tidy.token.mydata <span class="op">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(word, <span class="dt">sort =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">400</span>) <span class="op">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(<span class="dt">word =</span> stats<span class="op">::</span><span class="kw">reorder</span>(word, n)) <span class="op">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(ggplot2<span class="op">::</span><span class="kw">aes</span>(word, n)) <span class="op">+</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_col</span>() <span class="op">+</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">coord_flip</span>() <span class="op">+</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_minimal</span>()</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 <p>Feel free to keep going with this. Now that you have the time line (episode, season) and the character for each line and word in the series, you can perform an unlimited number of analyses. Some ideas: - Sentiment by character - Sentiment by character by season - Narcissism by season (ahem.. Nard Dog season 8-9) - Lines by character - Etc.</p>
 </div>

@@ -39,8 +39,8 @@ library(schrute)
 library(tibble)
 
 tibble::glimpse(schrute::theoffice)
-#> Observations: 55,130
-#> Variables: 12
+#> Rows: 55,130
+#> Columns: 12
 #> $ index            <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1…
 #> $ season           <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
 #> $ episode          <int> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
@@ -58,3 +58,20 @@ tibble::glimpse(schrute::theoffice)
 Or view the short vignette with:
 
     vignette("theoffice")
+
+## Watch and learn
+
+Julia Silge and David Robinson, creators of the [tidyText
+package](https://www.tidytextmining.com/) both used the {schrute}
+package for a \#tidyTuesday analysis. Watch their videos and learn from
+the masters:
+
+  - [David Robinson
+    (Youtube)](https://www.youtube.com/watch?v=_IvAubTDQME&t=1092s)
+  - [Julia Silge (Youtube)](https://www.youtube.com/watch?v=R32AsuKICAY)
+
+## Other languages
+
+This same dataset is also available in
+[python](https://github.com/bradlindblad/schrutepy) and
+[julia](https://github.com/bradlindblad/Schrute.jl)
