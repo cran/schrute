@@ -1,6 +1,7 @@
-# schrute 1.0.0
+# schrute 1.0.1
+* Added back IMDB columns
 
-# schrute 1.0
+# schrute 1.0.0
 * All of the lines in the series are now actually in order
 
 # schrute 0.2.2

@@ -350,47 +350,102 @@ variable</p>
 <p>Take a peek at the format:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(mydata)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 55,130</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 9</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 12</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ index            &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16…</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ season           &lt;chr&gt; &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;,…</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ episode          &lt;chr&gt; &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;,…</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ season           &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ episode          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ episode_name     &lt;chr&gt; &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;, &quot;Pilot&quot;,…</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ director         &lt;chr&gt; &quot;Ken Kwapis&quot;, &quot;Ken Kwapis&quot;, &quot;Ken Kwapis&quot;, &quot;Ken Kwapis…</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ writer           &lt;chr&gt; &quot;Ricky Gervais;Stephen Merchant;Greg Daniels&quot;, &quot;Ricky…</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ character        &lt;chr&gt; &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, &quot;Jim&quot;, &quot;Michael&quot;, &quot;Micha…</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ text             &lt;chr&gt; &quot;All right Jim. Your quarterlies look very good. How …</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ text_w_direction &lt;chr&gt; &quot;All right Jim. Your quarterlies look very good. How …</span></span></code></pre></div>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ text_w_direction &lt;chr&gt; &quot;All right Jim. Your quarterlies look very good. How …</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ imdb_rating      &lt;dbl&gt; 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6, 7.6…</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ total_votes      &lt;int&gt; 3706, 3706, 3706, 3706, 3706, 3706, 3706, 3706, 3706,…</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ air_date         &lt;chr&gt; &quot;2005-03-24&quot;, &quot;2005-03-24&quot;, &quot;2005-03-24&quot;, &quot;2005-03-24…</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a> mydata <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(season <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(episode <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
-<table>
+<table style="width:100%;">
 <colgroup>
-<col width="7%" />
-<col width="8%" />
-<col width="9%" />
-<col width="15%" />
-<col width="10%" />
-<col width="8%" />
-<col width="12%" />
-<col width="6%" />
-<col width="20%" />
+<col width="1%" />
+<col width="2%" />
+<col width="2%" />
+<col width="4%" />
+<col width="3%" />
+<col width="14%" />
+<col width="3%" />
+<col width="27%" />
+<col width="27%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="right">index</th>
-<th align="left">season</th>
-<th align="left">episode</th>
+<th align="right">season</th>
+<th align="right">episode</th>
 <th align="left">episode_name</th>
 <th align="left">director</th>
 <th align="left">writer</th>
 <th align="left">character</th>
 <th align="left">text</th>
 <th align="left">text_w_direction</th>
+<th align="right">imdb_rating</th>
+<th align="right">total_votes</th>
+<th align="left">air_date</th>
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
+<td align="left">Michael</td>
+<td align="left">All right Jim. Your quarterlies look very good. How are
+things at the library?</td>
+<td align="left">All right Jim. Your quarterlies look very good. How are
+things at the library?</td>
+<td align="right">7.6</td>
+<td align="right">3706</td>
+<td align="left">2005-03-24</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
+<td align="left">Jim</td>
+<td align="left">Oh, I told you. I couldn’t close it. So…</td>
+<td align="left">Oh, I told you. I couldn’t close it. So…</td>
+<td align="right">7.6</td>
+<td align="right">3706</td>
+<td align="left">2005-03-24</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
+<td align="left">Michael</td>
+<td align="left">So you’ve come to the master for guidance? Is this what
+you’re saying, grasshopper?</td>
+<td align="left">So you’ve come to the master for guidance? Is this what
+you’re saying, grasshopper?</td>
+<td align="right">7.6</td>
+<td align="right">3706</td>
+<td align="left">2005-03-24</td>
+</tr>
 </tbody>
 </table>
 <p>So what we have is the season, episode number and name, character,
@@ -406,32 +461,83 @@ contains a word from the script.</p>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(episode <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
-<table>
+<table style="width:100%;">
 <colgroup>
-<col width="7%" />
-<col width="8%" />
-<col width="9%" />
-<col width="15%" />
-<col width="10%" />
-<col width="8%" />
-<col width="12%" />
+<col width="2%" />
+<col width="3%" />
+<col width="3%" />
+<col width="5%" />
+<col width="5%" />
 <col width="20%" />
-<col width="6%" />
+<col width="4%" />
+<col width="36%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="2%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="right">index</th>
-<th align="left">season</th>
-<th align="left">episode</th>
+<th align="right">season</th>
+<th align="right">episode</th>
 <th align="left">episode_name</th>
 <th align="left">director</th>
 <th align="left">writer</th>
 <th align="left">character</th>
 <th align="left">text_w_direction</th>
+<th align="right">imdb_rating</th>
+<th align="right">total_votes</th>
+<th align="left">air_date</th>
 <th align="left">word</th>
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
+<td align="left">Michael</td>
+<td align="left">All right Jim. Your quarterlies look very good. How are
+things at the library?</td>
+<td align="right">7.6</td>
+<td align="right">3706</td>
+<td align="left">2005-03-24</td>
+<td align="left">all</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
+<td align="left">Michael</td>
+<td align="left">All right Jim. Your quarterlies look very good. How are
+things at the library?</td>
+<td align="right">7.6</td>
+<td align="right">3706</td>
+<td align="left">2005-03-24</td>
+<td align="left">right</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">Pilot</td>
+<td align="left">Ken Kwapis</td>
+<td align="left">Ricky Gervais;Stephen Merchant;Greg Daniels</td>
+<td align="left">Michael</td>
+<td align="left">All right Jim. Your quarterlies look very good. How are
+things at the library?</td>
+<td align="right">7.6</td>
+<td align="right">3706</td>
+<td align="left">2005-03-24</td>
+<td align="left">jim</td>
+</tr>
 </tbody>
 </table>
 <p>If we want to analyze the entire data set, we need to remove some
